@@ -1,0 +1,29 @@
+<template>
+    <div class="slds-text-align_center slds-box slds-theme_default">
+        <div class="slds-text-heading_large slds-var-p-around_medium">Enter City to find STD Code(s)</div>
+        <lightning-input type="text" lwc:ref="cityText" placeholder="Enter City Name"></lightning-input>
+        <div class="slds-var-m-around_large">
+            <lightning-button  variant="brand" label="Find STD Code" onclick={findCode}></lightning-button>
+        </div>
+    </div>
+    <div class="slds-text-align_center slds-box slds-theme_default">
+        <div if:true={isLoaded}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+        <template lwc:if={result}>
+            <div class="slds-text-heading_large slds-var-p-around_medium">STD Code(s) for the city {city}</div>
+            <lightning-datatable
+                key-field="std"
+                data={result}
+                columns={columns}
+                hide-checkbox-column
+            >
+        </lightning-datatable>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-text-heading_large slds-var-p-around_medium">Error Occured while finding STD Codes for the city {city}</div>
+            <div class="slds-text-heading_small slds-var-p-around_medium">{error}</div>
+        </template>
+    </div>
+</template>
